@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "tsx watch --env-file=.env src/server.ts",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "dev": "tsx watch src/server.ts",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "migration:generate": "drizzle-kit generate:pg --schema=./src/db/schema.ts",
+    "migration:push": "tsx watch --env-file=.env src/db/migrate.ts",
+    "migrate": "drizzle-kit generate:pg --schema=./src/db/schema.ts && tsx src/db/migrate.ts"
   },
   "keywords": [],
   "author": "",
@@ -18,12 +21,16 @@
     "@types/node": "^20.10.6",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
+    "drizzle-kit": "^0.20.9",
     "eslint": "^8.56.0",
     "prettier": "^3.1.1",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.29.3",
+    "express": "^4.18.2",
+    "postgres": "^3.4.3"
   }
 }

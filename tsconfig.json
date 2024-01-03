@@ -1,0 +1,30 @@
+{
+  "extends": ["@tsconfig/node-lts/tsconfig.json"],
+  "compilerOptions": {
+    /* Path */
+    "outDir": "dist",
+    "baseUrl": "src/",
+    "paths": {
+      "@/db/*": ["db/*"],
+      "@/models/*": ["models/*"],
+      "@/utils/*": ["utils/*"],
+      "@/types/*": ["types/*"],
+      "@/routes/*": ["routes/*"],
+      "@/controllers/*": ["controllers/*"]
+    },
+    /* Linting */
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "strictBindCallApply": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "declaration": true
+  },
+  "include": ["src"],
+  "exclude": ["dist", "node_modules"]
+}

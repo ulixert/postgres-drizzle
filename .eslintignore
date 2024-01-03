@@ -1,0 +1,12 @@
+lib
+esm
+cjs
+dist
+public
+dev-data
+
+.cache
+.eslintrc.cjs
+*.d.ts
+*.js
+tsconfig.json

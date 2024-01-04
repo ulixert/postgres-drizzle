@@ -4,6 +4,7 @@ cjs
 dist
 public
 dev-data
+*.config.ts
 
 .cache
 .eslintrc.cjs

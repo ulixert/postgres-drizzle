@@ -22,3 +22,12 @@ GET {{api}}/users/1/posts
 
 ### 6. Get first user's first post's comments
 GET {{api}}/users/1/posts/categories
+
+### 7. sign up
+POST {{api}}/users/new/signup
+
+### 8. Create 3 posts
+POST {{api}}/users/new/post
+
+### 9. Create 3 posts with categories
+POST {{api}}/users/new/post/categories

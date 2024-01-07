@@ -1,1 +1,21 @@
+### 1. Get all users
 GET {{api}}/users
+
+### 2. Get user by id
+GET {{api}}/users/tom
+
+### 3. Get first user's profile
+GET {{api}}/users/join/5/profile
+
+### 4. Create user
+POST {{api}}/users
+Content-Type: application/json
+
+{
+  "phone": "123456789",
+  "address": "123 Main St",
+  "score": 60
+}
+
+### 5. Get posts by user id
+GET {{api}}/users/1/posts

@@ -9,12 +9,12 @@ async function main() {
     await migrate(drizzle(migrationConnection), {
       migrationsFolder: 'drizzle',
     });
-    await migrationConnection.end();
-
     process.exit(0);
   } catch (err) {
     console.error(err);
     process.exit(1);
+  } finally {
+    await migrationConnection.end();
   }
 }
 

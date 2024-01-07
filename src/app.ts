@@ -133,3 +133,56 @@ app.get('/api/v1/users/:id/posts', async (req, res) => {
     },
   });
 });
+
+app.get('/api/v1/users/:userId/posts/categories', async (req, res) => {
+  try {
+    const id = Number(req.params.userId);
+    // const result = await db.query.users.findFirst({
+    //   where: eq(users.id, id),
+    //   with: {
+    //     posts: {
+    //       with: {
+    //         postToCategories: {
+    //           with: {
+    //             category: true,
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // });
+
+    const result2 = await db.query.posts.findFirst({
+      with: {
+        author: true,
+        postsToCategories: {
+          columns: {
+            categoriesId: false,
+            postId: false,
+          },
+          with: {
+            category: {
+              columns: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        posts: result2,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({
+      status: 'fail',
+      message: 'User not found',
+    });
+  }
+});

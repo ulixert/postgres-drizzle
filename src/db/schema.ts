@@ -1,5 +1,12 @@
 import { relations } from 'drizzle-orm';
-import { integer, pgTable, serial, text, varchar } from 'drizzle-orm/pg-core';
+import {
+  integer,
+  pgTable,
+  primaryKey,
+  serial,
+  text,
+  varchar,
+} from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
@@ -33,12 +40,51 @@ export const posts = pgTable('posts', {
     .references(() => users.id),
 });
 
-export const postsRelations = relations(posts, ({ one }) => ({
+export const postsRelations = relations(posts, ({ one, many }) => ({
   author: one(users, {
     fields: [posts.authorId],
     references: [users.id],
   }),
+  postsToCategories: many(postsToCategories),
 }));
+
+export const categories = pgTable('categories', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 256 }).notNull(),
+});
+
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  postsToCategories: many(postsToCategories),
+}));
+
+export const postsToCategories = pgTable(
+  'posts_to_categories',
+  {
+    postId: integer('post_id')
+      .notNull()
+      .references(() => posts.id),
+    categoriesId: integer('categories_id')
+      .notNull()
+      .references(() => categories.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.postId, t.categoriesId] }),
+  }),
+);
+
+export const postsToCategoriesRelations = relations(
+  postsToCategories,
+  ({ one }) => ({
+    post: one(posts, {
+      fields: [postsToCategories.postId],
+      references: [posts.id],
+    }),
+    category: one(categories, {
+      fields: [postsToCategories.categoriesId],
+      references: [categories.id],
+    }),
+  }),
+);
 
 // export const moodEnum = pgEnum('mood', ['sad', 'happy', 'neutral']);
 //

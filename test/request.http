@@ -19,3 +19,6 @@ Content-Type: application/json
 
 ### 5. Get posts by user id
 GET {{api}}/users/1/posts
+
+### 6. Get first user's first post's comments
+GET {{api}}/users/1/posts/categories
